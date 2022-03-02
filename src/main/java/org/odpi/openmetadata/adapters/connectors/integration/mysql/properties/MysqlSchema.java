@@ -57,12 +57,13 @@ public class MysqlSchema {
     {
         Map<String,String> props = new HashMap<>();
 
-            props.put("catalog_name", getCatalog_name());
-            props.put("schema_name", getSchema_name());
-            props.put("default_character_set_name", getDefault_character_set_name());
-            props.put("default_collation_name", getDefault_collation_name());
-            props.put("default_encryption", getDefault_encryption());
-            props.put("sql_path", getSql_path());
+        props.put("catalog_name", getCatalog_name());
+        props.put("schema_name", getSchema_name());
+        props.put("default_character_set_name", getDefault_character_set_name());
+        props.put("default_collation_name", getDefault_collation_name());
+        props.put("sql_path", getSql_path());
+        props.put("default_encryption", getDefault_encryption());
+
         return props;
     }
 

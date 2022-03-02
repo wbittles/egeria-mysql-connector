@@ -103,23 +103,7 @@ public class MysqlMapper
         DatabaseColumnProperties colProps = new DatabaseColumnProperties();
         colProps.setDisplayName(col.getColumn_name());
         colProps.setQualifiedName(col.getQualifiedName());
-
         colProps.setDataType(col.getData_type());
-
-        if( col.getMaximum_cardinality() != null )
-        {
-            try
-            {
-                colProps.setMaxCardinality(Integer.valueOf(col.getMaximum_cardinality()));
-            }
-            catch (NumberFormatException error)
-            {
-                //if we can't make an Integer out of it
-                //just leave the property unset
-
-            }
-        }
-
         colProps.setAdditionalProperties(col.getProperties());
 
         return colProps;

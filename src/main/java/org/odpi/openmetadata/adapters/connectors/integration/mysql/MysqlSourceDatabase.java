@@ -202,14 +202,23 @@ public class MysqlSourceDatabase
                         rs.getString("table_schema"),
                         rs.getString("table_name"),
                         rs.getString("table_type"),
-                        rs.getString("self_referencing_column_name"),
-                        rs.getString("reference_generation"),
-                        rs.getString("user_defined_type_catalog"),
-                        rs.getString("user_defined_type_schema"),
-                        rs.getString("user_defined_type_name"),
-                        rs.getString("user_defined_type_name"),
-                        rs.getString("is_insertable_into"),
-                        rs.getString("commit_action")
+                        rs.getString("engine"),
+                        rs.getString("version"),
+                        rs.getString("row_format"),
+                        rs.getString("table_rows"),
+                        rs.getString("avg_row_length"),
+                        rs.getString("data_length"),
+                        rs.getString("max_data_length"),
+                        rs.getString("index_length"),
+                        rs.getString("data_free"),
+                        rs.getString("auto_increment"),
+                        rs.getString("create_time"),
+                        rs.getString("update_time"),
+                        rs.getString("check_time"),
+                        rs.getString("table_collation"),
+                        rs.getString("checksum"),
+                        rs.getString("create_options"),
+                        rs.getString("table_comment")
                 );
                 attributes.add(attr);
             }
@@ -235,7 +244,6 @@ public class MysqlSourceDatabase
                 ResultSet rs = stmt.executeQuery(sql);
         ) {
             while (rs.next()) {
-
                 MysqlColumn attr = new MysqlColumn(
                         rs.getString("table_catalog"),
                         rs.getString("table_schema"),
@@ -248,40 +256,12 @@ public class MysqlSourceDatabase
                         rs.getString("character_maximum_length"),
                         rs.getString("character_octet_length"),
                         rs.getString("numeric_precision"),
-                        rs.getString("numeric_precision_radix"),
                         rs.getString("numeric_scale"),
                         rs.getString("datetime_precision"),
-                        rs.getString("interval_type"),
-                        rs.getString("interval_precision"),
-                        rs.getString("character_set_catalog"),
-                        rs.getString("character_set_schema"),
                         rs.getString("character_set_name"),
-                        rs.getString("collation_catalog"),
-                        rs.getString("collation_schema"),
                         rs.getString("collation_name"),
-                        rs.getString("domain_catalog"),
-                        rs.getString("domain_schema"),
-                        rs.getString("domain_name"),
-                        rs.getString("udt_catalog"),
-                        rs.getString("udt_schema"),
-                        rs.getString("udt_name"),
-                        rs.getString("scope_catalog"),
-                        rs.getString("scope_schema"),
-                        rs.getString("scope_name"),
-                        rs.getString("maximum_cardinality"),
-                        rs.getString("dtd_identifier"),
-                        rs.getString("is_self_referencing"),
-                        rs.getString("is_identity"),
-                        rs.getString("identity_generation"),
-                        rs.getString("identity_start"),
-                        rs.getString("identity_increment"),
-                        rs.getString("identity_maximum"),
-                        rs.getString("identity_minimum"),
-                        rs.getString("identity_cycle"),
-                        rs.getString("is_generated"),
-                        rs.getString("generation_expression"),
-                        rs.getString("is_updatable")
-                );
+                        rs.getString("generation_expression"));
+
                 cols.add(attr);
             }
 
