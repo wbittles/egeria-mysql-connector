@@ -325,7 +325,9 @@ public class MysqlSourceDatabase
     private List<String> getKeyNamesForTable(String tableName, String type) throws SQLException {
         List<String> names = new ArrayList<>();
 
-        String sql = "SELECT c.column_name AS name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type = '%s' and tc.table_name = '%s';";
+        //String sql = "SELECT c.column_name AS name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type = '%s' and tc.table_name = '%s';";
+        String sql = "SELECT kcu.column_name FROM information_schema.table_constraints tc INNER JOIN information_schema.key_column_usage kcu ON tc.CONSTRAINT_CATALOG = kcu.CONSTRAINT_CATALOG AND tc.CONSTRAINT_SCHEMA = kcu.CONSTRAINT_SCHEMA AND tc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME WHERE tc.table_schema = schema() AND tc.constraint_type = '%s' AND tc.table_name = '%s'";
+
         sql = String.format(sql, type, tableName);
 
         try( Connection conn  = DriverManager.getConnection( mysqlProps.getProperty("url"), mysqlProps.getProperty("user"), mysqlProps.getProperty("password") );
@@ -334,7 +336,7 @@ public class MysqlSourceDatabase
         ) {
             while (rs.next()) {
 
-                String name = rs.getString("name");
+                String name = rs.getString("column_name");
                 names.add(name);
             }
 
@@ -344,7 +346,7 @@ public class MysqlSourceDatabase
     }
 
     /**
-     * lists the foreign key attributes needed to create an enetity relationship between the database columns
+     * lists the foreign key attributes needed to create an entity relationship between the database columns
      * @param tableName the name of the table containimng the foregin keys
      * @return A list of foregin key links attributes for the given table
      * @throws SQLException thrown by the JDBC Driver
