@@ -134,7 +134,7 @@ public class MysqlSourceDatabase
                 MysqlSchema attributes = new MysqlSchema(
                         rs.getString("catalog_name"),
                         rs.getString("schema_name"),
-                        rs.getString("default_character_set_schema"),
+                        rs.getString("default_character_set_name"),
                         rs.getString("default_collation_name"),
                         rs.getString("sql_path"),
                         rs.getString("default_encryption"));
