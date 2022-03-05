@@ -24,12 +24,12 @@ This project is under developent and not prodcution ready just yet.
 This project will hold an Egeria Integration Daemon connector for the mysql RDBMS.
 It will support the following database entites
 
-Databases
-Schemas
-Tables
-Columns
-Primary Keys
-Foregin Keys
+* Databases
+* Schemas
+* Tables
+* Columns
+* Primary Keys
+* Foregin Keys
 
 [Egeria's Connector Catalog](https://egeria-project.org/connectors/)
 
