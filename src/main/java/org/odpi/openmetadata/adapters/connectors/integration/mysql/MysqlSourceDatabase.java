@@ -352,25 +352,17 @@ public class MysqlSourceDatabase
      * @throws SQLException thrown by the JDBC Driver
      */
     public List<MysqlForeignKeyLinks> getForeginKeyLinksForTable(String tableName) throws SQLException {
-
-        String sql = "SELECT\n" +
-                "    tc.table_schema, \n" +
-                "    tc.constraint_name, \n" +
-                "    tc.table_name, \n" +
-                "    kcu.column_name, \n" +
-                "    ccu.table_schema AS ftschema,\n" +
-                "    ccu.table_name AS ftname,\n" +
-                "    ccu.column_name AS fcolumn \n" +
-                "FROM \n" +
-                "    information_schema.table_constraints AS tc \n" +
-                "    JOIN information_schema.key_column_usage AS kcu\n" +
-                "      ON tc.constraint_name = kcu.constraint_name\n" +
-                "      AND tc.table_schema = kcu.table_schema\n" +
-                "    JOIN information_schema.constraint_column_usage AS ccu\n" +
-                "      ON ccu.constraint_name = tc.constraint_name\n" +
-                "      AND ccu.table_schema = tc.table_schema\n" +
-                "WHERE tc.constraint_type = 'FOREIGN KEY' AND tc.table_name='%s';\n";
-
+        String sql = "SELECT \n" +
+                "TABLE_NAME\n" +
+        "COLUMN_NAME\n" +
+                "CONSTRAINT_NAME\n" +
+                "REFERENCED_TABLE_NAME\n" +
+                "REFERENCED_COLUMN_NAME\n" +
+                        "FROM\n" +
+                        "INFORMATION_SCHEMA.KEY_COLUMN_USAGE\n" +
+                        "WHERE\n" +
+                        "REFERENCED_TABLE_SCHEMA = Databasse() \n" +
+                        "AND REFERENCED_TABLE_NAME = '%s';" ;
 
         sql = String.format(sql, tableName);
 
@@ -383,13 +375,10 @@ public class MysqlSourceDatabase
         {
             while (rs.next()) {
                 MysqlForeignKeyLinks link = new MysqlForeignKeyLinks(
-                        rs.getString("table_schema"),
-                        rs.getString("constraint_name"),
                         rs.getString("table_name"),
                         rs.getString("column_name"),
-                        rs.getString("ftschema"),
-                        rs.getString("ftname"),
-                        rs.getString("fcolumn"));
+                        rs.getString("constraint_name"),
+                        rs.getString("referenced_column_name"));
 
                 results.add(link);
             }

@@ -8,35 +8,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MysqlForeginKeyLinksTest {
 
+
     @DisplayName("Test getImportedColumnQualifiedName()")
     @Test
     void getImportedColumnQualifiedName() {
 
-        MysqlForeignKeyLinks link = new MysqlForeignKeyLinks(     "table_schema",
-                                                                    "constraint_name",
-                                                                        "table_name",
+        MysqlForeignKeyLinks link = new MysqlForeignKeyLinks("table_name",
                                                                         "column_name",
-                                                                    "foreign_schema",
-                                                                    "foregin_table",
-                                                                    "foregin_column");
+                                                                        "constraint_name",
+                                                                        "referenced_table_name");
 
 
-        assertEquals( link.getImportedColumnQualifiedName(), "table_schema" + "." + "table_name" + "." + "column_name");
+        assertEquals( link.getImportedColumnQualifiedName(), "referenced_table_name" + "." + "column_name");
     }
 
     @DisplayName("Test getExportedColumnQualifiedName()")
     @Test
     void getExportedColumnQualifiedName() {
 
-        MysqlForeignKeyLinks link = new MysqlForeignKeyLinks(     "table_schema",
-                "constraint_name",
-                "table_name",
+        MysqlForeignKeyLinks link = new MysqlForeignKeyLinks("table_name",
                 "column_name",
-                "foregin_schema",
-                "foregin_table",
-                "foregin_column");
+                "constraint_name",
+                "referenced_table_name");
 
-        assertEquals( link.getExportedColumnQualifiedName(), "foregin_schema" + "." + "foregin_table" + "." + "foregin_column");
+        assertEquals( link.getExportedColumnQualifiedName(), "table_name" + "." + "column_name");
 
     }
 }
